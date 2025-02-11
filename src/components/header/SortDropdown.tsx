@@ -7,6 +7,7 @@ import {
   SortValue,
 } from "../../types";
 import style from "./Header.module.css";
+import { SortOptions } from "./SortOptions";
 
 type SortDropdownProps = {
   sortBy: AlbumSortBy;
@@ -38,36 +39,23 @@ const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
       <div className={style.dropdownContent}>
         <div>Sort By</div>
         {sortDropdownOptions.map((sortOption, index) => {
-          console.log(sortOption);
           return (
             <div
               key={index}
               className={style.sortOptionGroup}>
               <div>{CapitalizeFirstLetter(sortOption)}</div>
-              <div className={style.sortOption}>
-                <input
-                  type='radio'
-                  name='sort ascending'
-                  value={`${sortOption} ascending`}
-                  checked={selectedSort === `${sortOption} ascending`}
-                  onChange={() =>
-                    handleSetSelectedSort(sortOption, "ascending")
-                  }
-                />
-                <label htmlFor={sortOption}>Ascending</label>
-              </div>
-              <div className={style.sortOption}>
-                <input
-                  type='radio'
-                  name='sort descending'
-                  value={`${sortOption} descending`}
-                  checked={selectedSort === `${sortOption} descending`}
-                  onChange={() =>
-                    handleSetSelectedSort(sortOption, "descending")
-                  }
-                />
-                <label htmlFor={sortOption}>Descending</label>
-              </div>
+              <SortOptions
+                sortOption={sortOption}
+                selectedSort={selectedSort}
+                handleSetSelectedSort={handleSetSelectedSort}
+                sortType='ascending'
+              />
+              <SortOptions
+                sortOption={sortOption}
+                selectedSort={selectedSort}
+                handleSetSelectedSort={handleSetSelectedSort}
+                sortType='descending'
+              />
             </div>
           );
         })}
