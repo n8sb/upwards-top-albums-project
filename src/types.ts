@@ -94,4 +94,4 @@ export const sortDropdownOptions = ["artist", "genre", "release year"] as const;
 export type SortValue = (typeof sortDropdownOptions)[number];
 
 export type SortType = "ascending" | "descending";
-export type AlbumSortBy = `${SortValue} ${SortType}` | "";
+export type AlbumSortBy = `${SortValue} ${SortType}` | null;

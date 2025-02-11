@@ -9,7 +9,7 @@ import {
 import style from "./Header.module.css";
 
 type SortDropdownProps = {
-  sortBy: string;
+  sortBy: AlbumSortBy;
   setSortBy: (sortBy: AlbumSortBy) => void;
 };
 

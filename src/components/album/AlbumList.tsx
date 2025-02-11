@@ -20,6 +20,8 @@ export const AlbumList = ({
   const [albumData, setAlbumData] = useState<Album[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(isLoading, setSearchQuery, setSortBy);
+
   const getData = async () => {
     try {
       const newData = await fetch(ALBUM_URL);
@@ -37,6 +39,8 @@ export const AlbumList = ({
   useEffect(() => {
     getData();
   }, []);
+
+  console.log(searchQuery, sortBy);
 
   // const filteredAlbumData = albumData?.filter((album) => {
   //   return album["im:name"].label.includes(searchQuery);

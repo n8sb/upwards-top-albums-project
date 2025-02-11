@@ -6,7 +6,7 @@ import { AlbumSortBy } from "./types";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<AlbumSortBy>("");
+  const [sortBy, setSortBy] = useState<AlbumSortBy>(null);
 
   return (
     <>
