@@ -1,0 +1,82 @@
+.header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  padding: 10px 20px;
+}
+
+.header_logo {
+  height: 50px;
+  text-decoration: none;
+}
+
+.searchBarContainer {
+  display: flex;
+  .searchBar {
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    color: #000;
+    &::after {
+      content: "x";
+      display: block;
+    }
+  }
+}
+
+.actionContainer {
+  display: flex;
+  gap: 10px;
+  place-items: center;
+}
+
+.dropdownButton {
+  cursor: pointer;
+}
+
+.dropdownContent {
+  /* display: none; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  min-width: 200px;
+  min-height: 300px;
+  padding: 10px 0;
+}
+
+.dropdownButton:hover .dropdownContent {
+  background-color: #f9f9f9;
+}
+
+.dropdownButtonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.sortOptionGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: solid 1px #d9d9d9;
+  gap: 5px;
+  padding: 10px;
+  flex: 1;
+}
+
+.sortOption {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
