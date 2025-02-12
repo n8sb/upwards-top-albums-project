@@ -90,8 +90,11 @@ export interface Album {
 }
 
 // update types as sort uptions are added
-export const sortDropdownOptions = ["artist", "genre", "release year"] as const;
-export type SortValue = (typeof sortDropdownOptions)[number];
+export const sortOptions = ["artist", "album", "release date"] as const;
+export type SortValue = (typeof sortOptions)[number];
 
 export type SortType = "ascending" | "descending";
 export type AlbumSortBy = `${SortValue} ${SortType}` | null;
+
+export const filterOptions = ["year", "genre"] as const;
+export type FilterValue = (typeof filterOptions)[number];
