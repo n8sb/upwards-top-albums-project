@@ -1,4 +1,4 @@
-import style from "./Header.module.css";
+import styles from "./SearchBar.module.css";
 
 interface SearchBarProps {
   searchQuery: string;
@@ -11,12 +11,12 @@ const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   };
 
   return (
-    <div className={style.searchBarContainer}>
+    <div className={styles.searchBarContainer}>
       <input
-        className={style.searchBar}
+        className={styles.searchBar}
         onChange={handleAlbumSearch}
         value={searchQuery}
-        placeholder='Search for an album...'
+        placeholder='Search by album or artist...'
       />
     </div>
   );

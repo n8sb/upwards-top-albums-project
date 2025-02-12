@@ -1,0 +1,30 @@
+.perspective {
+  perspective: 1000px;
+}
+
+.card {
+  position: relative;
+}
+
+.modalOpen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlayVisible {
+  opacity: 1;
+}

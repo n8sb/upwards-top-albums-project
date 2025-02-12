@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./App.css";
-import { AlbumList } from "./components/album/AlbumList";
-import Header from "./components/header/Header";
+import { AlbumList } from "./components/AlbumList/AlbumList";
 import { AlbumSortBy } from "./types";
+import { Header } from "./components/Header/Header";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");

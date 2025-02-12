@@ -1,7 +1,8 @@
-import { Suspense, useEffect, useState } from "react";
-import style from "./AlbumList.module.css";
-import { AlbumCard } from "./AlbumCard";
+import { useEffect, useState } from "react";
 import { Album, AlbumSortBy } from "../../types";
+import { AlbumCard } from "../AlbumCard/AlbumCard";
+import styles from "./AlbumList.module.css";
+import AlbumModal from "../AlbumModal/AlbumModal";
 
 type AlbumListProps = {
   searchQuery: string;
@@ -19,8 +20,15 @@ export const AlbumList = ({
   const ALBUM_URL = "https://itunes.apple.com/us/rss/topalbums/limit=100/json";
   const [albumData, setAlbumData] = useState<Album[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
 
-  console.log(isLoading, setSearchQuery, setSortBy);
+  console.log(
+    isLoading,
+    setSearchQuery,
+    setSortBy,
+    selectedAlbum,
+    setSelectedAlbum
+  );
 
   const getData = async () => {
     try {
@@ -58,16 +66,19 @@ export const AlbumList = ({
   // });
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className={style.albumListContainer}>
-        {albumData &&
-          albumData.map((album) => (
-            <AlbumCard
-              key={album.id.attributes["im:id"]}
-              album={album}
-            />
-          ))}
-      </div>
-    </Suspense>
+    <div className={styles.albumListContainer}>
+      {albumData &&
+        albumData.map((album) => (
+          <AlbumCard
+            setSelectedAlbum={setSelectedAlbum}
+            key={album.id.attributes["im:id"]}
+            album={album}
+          />
+        ))}
+      <AlbumModal
+        selectedAlbum={selectedAlbum}
+        setSelectedAlbum={setSelectedAlbum}
+      />
+    </div>
   );
 };

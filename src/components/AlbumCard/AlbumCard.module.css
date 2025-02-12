@@ -1,0 +1,4 @@
+.albumImage {
+  width: 170px;
+  object-fit: cover;
+}

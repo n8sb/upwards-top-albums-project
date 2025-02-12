@@ -1,0 +1,14 @@
+.searchBarContainer {
+  display: flex;
+  .searchBar {
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    color: #000;
+    min-width: 250px;
+    &::after {
+      content: "x";
+      display: block;
+    }
+  }
+}

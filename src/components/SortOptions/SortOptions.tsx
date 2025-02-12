@@ -1,5 +1,6 @@
+import { CapitalizeFirstLetter } from "../../common/utils";
 import { AlbumSortBy, SortType, SortValue } from "../../types";
-import style from "./Header.module.css";
+import styles from "./SortOptions.module.css";
 
 type SortOptionsProps = {
   sortOption: SortValue;
@@ -15,7 +16,7 @@ export const SortOptions = ({
   sortType,
 }: SortOptionsProps) => {
   return (
-    <div className={style.sortOption}>
+    <div className={styles.sortOption}>
       <input
         type='radio'
         name={`sort ${sortType}`}
@@ -23,7 +24,7 @@ export const SortOptions = ({
         checked={selectedSort === `${sortOption} ${sortType}`}
         onChange={() => handleSetSelectedSort(sortOption, sortType)}
       />
-      <label htmlFor={sortOption}>Descending</label>
+      <label htmlFor={sortOption}>{CapitalizeFirstLetter(sortType)}</label>
     </div>
   );
 };

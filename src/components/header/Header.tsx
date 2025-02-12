@@ -1,7 +1,7 @@
 import { AlbumSortBy } from "../../types";
-import style from "./Header.module.css";
-import SearchBar from "./SearchBar";
-import SortDropdown from "./SortDropdown";
+import styles from "./Header.module.css";
+import SearchBar from "../SearchBar/SearchBar";
+import { SortDropdown } from "../SortDropdown/SortDropdown";
 
 type HeaderProps = {
   searchQuery: string;
@@ -10,19 +10,19 @@ type HeaderProps = {
   setSortBy: (value: AlbumSortBy) => void;
 };
 
-const Header = ({
+export const Header = ({
   searchQuery,
   setSearchQuery,
   sortBy,
   setSortBy,
 }: HeaderProps) => {
   return (
-    <div className={style.header}>
+    <div className={styles.header}>
       <img
         src='/music.png'
-        className={style.header_logo}
+        className={styles.header_logo}
       />
-      <div className={style.actionContainer}>
+      <div className={styles.actionContainer}>
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -35,5 +35,3 @@ const Header = ({
     </div>
   );
 };
-
-export default Header;
