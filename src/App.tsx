@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { AlbumList } from "./components/AlbumList/AlbumList";
 import { AlbumSortBy } from "./types";
+import { Header } from "./components/Header/Header";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -9,6 +10,12 @@ function App() {
 
   return (
     <>
+      <Header
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
       <AlbumList
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
