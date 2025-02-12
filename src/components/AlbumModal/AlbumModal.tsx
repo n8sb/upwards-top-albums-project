@@ -2,7 +2,7 @@ import { Album } from "../../types";
 import styles from "./AlbumModal.module.css";
 
 type AlbumModalProps = {
-  setSelectedAlbum: (album: Album) => void;
+  setSelectedAlbum: (album: Album | null) => void;
   selectedAlbum: Album | null;
 };
 
