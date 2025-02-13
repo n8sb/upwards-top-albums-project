@@ -1,11 +1,11 @@
 import { CapitalizeFirstLetter } from "../../common/utils";
-import { AlbumSortBy, SortType, SortValue } from "../../types";
+import { AlbumSortBy, SortType, SortOption } from "../../common/types";
 import styles from "./SortOptions.module.css";
 
 type SortOptionsProps = {
-  sortOption: SortValue;
+  sortOption: SortOption;
   selectedSort: AlbumSortBy;
-  handleSetSelectedSort: (sortOption: SortValue, sortType: SortType) => void;
+  handleSetSelectedSort: (sortOption: SortOption, sortType: SortType) => void;
   sortType: SortType;
 };
 
