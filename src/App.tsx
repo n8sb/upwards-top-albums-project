@@ -7,6 +7,10 @@ import { Header } from "./components/Header/Header";
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<AlbumSortBy>(null);
+  const [filters, setFilters] = useState<FilterSelection>({
+    genre: [],
+    decade: [],
+  });
 
   return (
     <>
@@ -15,12 +19,13 @@ function App() {
         setSearchQuery={setSearchQuery}
         sortBy={sortBy}
         setSortBy={setSortBy}
+        filters={filters}
+        setFilters={setFilters}
       />
       <AlbumList
         searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         sortBy={sortBy}
-        setSortBy={setSortBy}
+        filters={filters}
       />
     </>
   );
