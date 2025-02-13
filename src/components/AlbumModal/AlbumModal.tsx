@@ -1,4 +1,4 @@
-import { Album } from "../../types";
+import { Album } from "../../common/types";
 import styles from "./AlbumModal.module.css";
 
 type AlbumModalProps = {
