@@ -1,0 +1,83 @@
+.slidePanel {
+  position: fixed;
+  top: 0;
+  right: -400px; /* Start off-screen */
+  width: 400px;
+  height: auto;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.slidePanel.open {
+  right: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdownActionButtonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.panelHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  img {
+    cursor: pointer;
+  }
+}
+
+.filterSection {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  align-items: flex-start;
+  border-bottom: solid 1px #d9d9d9;
+  flex-wrap: wrap;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

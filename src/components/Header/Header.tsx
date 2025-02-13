@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { AlbumSortBy } from "../../types";
+import { AlbumSortBy, FilterSelection } from "../../common/types";
 import SearchBar from "../SearchBar/SearchBar";
 import { SortDropdown } from "../SortDropdown/SortDropdown";
 import styles from "./Header.module.css";
+import { FilterPanel } from "../FilterPanel/FilterPanel";
 
 type HeaderProps = {
   searchQuery: string;
   setSearchQuery: (value: string) => void;
   sortBy: AlbumSortBy;
   setSortBy: (value: AlbumSortBy) => void;
+  filters: FilterSelection;
+  setFilters: (value: FilterSelection) => void;
 };
 
 export const Header = ({
@@ -16,8 +19,11 @@ export const Header = ({
   setSearchQuery,
   sortBy,
   setSortBy,
+  filters,
+  setFilters,
 }: HeaderProps) => {
   const [isAnimated, setIsAnimated] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,7 +57,13 @@ export const Header = ({
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
-        <button>Filter</button>
+        <FilterPanel
+          filters={filters}
+          setFilters={setFilters}
+          isOpen={isPanelOpen}
+          setIsPanelOpen={setIsPanelOpen}
+          onClose={() => setIsPanelOpen(false)}
+        />
       </div>
     </div>
   );
