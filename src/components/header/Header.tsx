@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import { AlbumSortBy } from "../../types";
-import styles from "./Header.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { SortDropdown } from "../SortDropdown/SortDropdown";
+import styles from "./Header.module.css";
 
 type HeaderProps = {
   searchQuery: string;
@@ -16,12 +17,31 @@ export const Header = ({
   sortBy,
   setSortBy,
 }: HeaderProps) => {
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimated((prev) => !prev);
+    }, 4000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className={styles.header}>
-      <img
-        src='/music.png'
-        className={styles.header_logo}
-      />
+      <div className={styles.headerLeftContainer}>
+        <img
+          src='/ITunes_logo.png'
+          className={styles.headerLogo}
+        />
+        <h1
+          className={`${styles.headerTitle} ${
+            isAnimated ? styles.animate : ""
+          }`}>
+          iTunes Top 100 Albums
+        </h1>
+      </div>
       <div className={styles.actionContainer}>
         <SearchBar
           searchQuery={searchQuery}
@@ -31,6 +51,7 @@ export const Header = ({
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
+        <button>Filter</button>
       </div>
     </div>
   );
