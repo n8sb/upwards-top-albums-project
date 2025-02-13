@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./SortDropdown.module.css";
 import { CapitalizeFirstLetter } from "../../common/utils";
-import { AlbumSortBy, sortOptions, SortType, SortValue } from "../../types";
+import { AlbumSortBy, SortType, SortOption } from "../../common/types";
 import { SortOptions } from "../SortOptions/SortOptions";
 import sortIcon from "/sort.svg";
 import descendingIcon from "/descending.svg";
 import ascendingIcon from "/ascending.svg";
 import closeIcon from "/clear.svg";
+import { sortOptions } from "../../common/dataSources";
 
 type SortDropdownProps = {
   sortBy: AlbumSortBy;
@@ -17,13 +18,16 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
   const [selectedSort, setSelectedSort] = useState<AlbumSortBy>(null);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        !dropdownRef.current.contains(event.target as Node) &&
+        !dropdownButtonRef.current?.contains(event.target as Node)
       ) {
+        setSelectedSort(sortBy);
         setShowDropdown(false);
       }
     };
@@ -34,9 +38,8 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
     };
   }, []);
 
-  const handleSetSelectedSort = (sortOption: SortValue, type: SortType) => {
+  const handleSetSelectedSort = (sortOption: SortOption, type: SortType) => {
     setSelectedSort(() => `${sortOption} ${type}` as AlbumSortBy);
-    console.log(selectedSort);
   };
 
   const handleTriggerSort = () => {
@@ -66,9 +69,14 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
   return (
     <>
       <button
+        ref={dropdownButtonRef}
         className={styles.dropdownButton}
         onClick={handleShowDropdown}>
-        {sortBy ? CapitalizeFirstLetter(sortBy.split(" ")[0]) : "Sort Albums"}
+        {sortBy
+          ? CapitalizeFirstLetter(
+              sortBy?.replace(/(ascending|descending)/g, "")
+            )
+          : "Sort"}
         <img
           src={getSortIcon(sortBy)}
           alt='Close'
@@ -109,7 +117,7 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
           );
         })}
         <div className={styles.dropdownActionButtonContainer}>
-          {sortBy && <button onClick={clearSort}>Clear</button>}
+          {selectedSort && <button onClick={clearSort}>Clear</button>}
           <button onClick={handleTriggerSort}>
             {selectedSort !== null ? "Sort" : "Close"}
           </button>
