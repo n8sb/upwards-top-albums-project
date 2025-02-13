@@ -1,4 +1,47 @@
+.albumCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  perspective: 1000px;
+}
+
 .albumImage {
-  width: 170px;
+  width: 100%;
   object-fit: cover;
+  cursor: pointer;
+}
+
+.albumName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.albumArtist {
+  font-size: 0.8rem;
+  color: #212529;
+}
+
+.albumText {
+  height: 100%;
+  padding-top: 5px;
+  font-size: 1rem;
+  color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (width < 600px) {
+  .albumCard {
+    width: 95%;
+  }
+  .albumImage {
+    width: 100%;
+  }
 }
