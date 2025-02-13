@@ -6,7 +6,7 @@ import {
   FilterValues,
   Genre,
 } from "../../common/types";
-import styles from "./FIlterPanel.module.css";
+import styles from "./FilterPanel.module.css";
 import closeIcon from "/clear.svg";
 
 type FilterPanelProps = {
