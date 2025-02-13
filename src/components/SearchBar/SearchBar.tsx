@@ -1,4 +1,5 @@
 import styles from "./SearchBar.module.css";
+import clearIcon from "/clear.svg";
 
 interface SearchBarProps {
   searchQuery: string;
@@ -6,18 +7,23 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
-  const handleAlbumSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
   return (
     <div className={styles.searchBarContainer}>
       <input
+        type='text'
         className={styles.searchBar}
-        onChange={handleAlbumSearch}
         value={searchQuery}
-        placeholder='Search by album or artist...'
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder='Search albums...'
       />
+      {searchQuery !== "" && (
+        <img
+          src={clearIcon}
+          alt='Clear search'
+          className={styles.clearSearchIcon}
+          onClick={() => setSearchQuery("")}
+        />
+      )}
     </div>
   );
 };
