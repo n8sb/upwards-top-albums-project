@@ -1,3 +1,6 @@
+import { decades, filterOptions, genres, sortOptions } from "./dataSources";
+
+// albumm daya types
 type Label = string;
 
 interface AlbumCategory {
@@ -56,6 +59,7 @@ interface AlbumReleaseDate {
   attributes: {
     label: Label;
   };
+  label: Label;
 }
 
 interface AlbumLink {
@@ -89,12 +93,19 @@ export interface Album {
   title: AlbumTitle;
 }
 
-// update types as sort uptions are added
-export const sortOptions = ["artist", "album", "release date"] as const;
-export type SortValue = (typeof sortOptions)[number];
-
+// sort types
+export type SortOption = (typeof sortOptions)[number];
 export type SortType = "ascending" | "descending";
-export type AlbumSortBy = `${SortValue} ${SortType}` | null;
+export type AlbumSortBy = `${SortOption} ${SortType}` | null;
 
-export const filterOptions = ["year", "genre"] as const;
-export type FilterValue = (typeof filterOptions)[number];
+// filter types
+export type FilterType = (typeof filterOptions)[number];
+export type Genre = (typeof genres)[number];
+export type Decade = (typeof decades)[number];
+
+export type FilterSelection = {
+  decade: Decade[];
+  genre: Genre[];
+};
+
+export type FilterValues = Decade | Genre;

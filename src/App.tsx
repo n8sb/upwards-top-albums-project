@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { AlbumList } from "./components/AlbumList/AlbumList";
-import { AlbumSortBy } from "./types";
+import { AlbumSortBy, FilterSelection } from "./common/types";
 import { Header } from "./components/Header/Header";
 
 function App() {
