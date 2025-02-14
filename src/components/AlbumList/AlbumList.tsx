@@ -8,6 +8,7 @@ import {
 } from "../../common/types";
 import { AlbumCard } from "../AlbumCard/AlbumCard";
 import styles from "./AlbumList.module.css";
+import { getAlbumYear } from "../../common/utils";
 
 type AlbumListProps = {
   searchQuery: string;
@@ -109,10 +110,8 @@ export const AlbumList = ({
 
     if (filters.decade.length !== 0) {
       filteredAlbums = filteredAlbums?.filter((album) => {
-        const yearEnd =
-          album["im:releaseDate"].attributes.label.split(" ")[2].slice(0, -1) +
-          "0";
-        return filters.decade.includes(yearEnd as Decade);
+        const year = getAlbumYear(album).slice(0, -1) + "0";
+        return filters.decade.includes(year as Decade);
       });
     }
 
