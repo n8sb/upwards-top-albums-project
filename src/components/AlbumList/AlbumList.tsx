@@ -31,6 +31,8 @@ export const AlbumList = ({
   const [albumData, setAlbumData] = useState<Album[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [dataError, setDataError] = useState<string | unknown>("");
+  // State to trigger re-render of AlbumCard components when favorite is added/removed via localStorage
+  const [favoriteChange, setFavoriteChange] = useState(false);
 
   const getData = async () => {
     try {
@@ -118,7 +120,7 @@ export const AlbumList = ({
     return filteredAlbums || sortedAlbumData;
   };
 
-  // const filteredAlbums = getFilteredAlbums();
+  const filteredAlbums = getFilteredAlbums();
 
   return isLoading ? (
     <div className={styles.loadingContainer}>
@@ -129,7 +131,7 @@ export const AlbumList = ({
         </div>
       )}
     </div>
-  ) : getFilteredAlbums()?.length === 0 ? (
+  ) : filteredAlbums?.length === 0 ? (
     <div className={styles.emptySearchContainer}>
       <div className={styles.emptySearchMessage}>No albums found</div>
       <button
@@ -140,10 +142,12 @@ export const AlbumList = ({
     </div>
   ) : (
     <div className={styles.albumListContainer}>
-      {getFilteredAlbums()?.map((album) => (
+      {filteredAlbums?.map((album) => (
         <AlbumCard
           key={album.id.attributes["im:id"]}
           album={album}
+          setFavoriteChange={setFavoriteChange}
+          favoriteChange={favoriteChange}
         />
       ))}
     </div>

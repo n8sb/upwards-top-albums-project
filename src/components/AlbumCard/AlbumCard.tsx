@@ -7,10 +7,15 @@ import { getAlbumYear } from "../../common/utils";
 
 type AlbumCardProps = {
   album: Album;
-  setSelectedAlbum?: (album: Album) => void;
+  setFavoriteChange: (value: boolean) => void;
+  favoriteChange: boolean;
 };
 
-export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
+export const AlbumCard = memo(function AlbumCard({
+  album,
+  setFavoriteChange,
+  favoriteChange,
+}: AlbumCardProps) {
   const {
     id,
     link,
@@ -36,6 +41,7 @@ export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
     if (isFavorite) {
       localStorage.removeItem(id.attributes["im:id"]);
       setIsFavorite(false);
+      setFavoriteChange(!favoriteChange);
     } else {
       localStorage.setItem(id.attributes["im:id"], "true");
       setIsFavorite(true);
