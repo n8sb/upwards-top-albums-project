@@ -44,7 +44,7 @@ input[type="radio"]:checked {
 }
 
 input[type="checkbox"] {
-  accent-color: #fff;
+  accent-color: #000;
 }
 
 button {
@@ -54,7 +54,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #8bedf28d;
+  background-color: #8bedf2;
   cursor: pointer;
   transition: border-color 0.25s;
   &.clear {

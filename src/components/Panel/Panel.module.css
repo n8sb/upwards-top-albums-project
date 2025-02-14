@@ -33,10 +33,10 @@
 
 .panelButtonContainer {
   display: flex;
-  width: 100%;
   gap: 10px;
-  margin: 10px;
-  align-items: center;
+  padding: 10px 0;
+  align-items: flex-end;
+  justify-content: flex-end;
   flex-wrap: wrap;
 }
 
