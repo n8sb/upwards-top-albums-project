@@ -9,7 +9,7 @@
     position: absolute;
     top: 60px;
     right: 100px;
-    background-color: #f5f5f5;
+    background-color: #fafafa;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -58,6 +58,14 @@
   .dropdownContent {
     &.show {
       top: 120px;
+    }
+  }
+}
+
+@media screen and (width < 400px) {
+  .dropdownContent {
+    &.show {
+      top: 160px;
     }
   }
 }
