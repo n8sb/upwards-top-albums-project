@@ -1,17 +1,25 @@
-.slidePanel {
+.filterPanel {
   position: fixed;
   top: 0;
-  right: -400px; /* Start off-screen */
-  width: 400px;
+  right: -250px;
+  width: 250px;
   height: auto;
-  background-color: white;
+  background-color: #f5f5f5;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease-in-out;
   z-index: 1000;
+  &.open {
+    right: 0;
+  }
 }
 
-.slidePanel.open {
-  right: 0;
+.filterPanelContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  z-index: 1;
+  padding: 10px;
 }
 
 .overlay {
@@ -34,29 +42,39 @@
 
 .dropdownActionButtonContainer {
   display: flex;
+  flex-direction: column;
   width: 100%;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 10px;
 }
 
-.panelHeader {
+.filterPanelHeader {
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  h2 {
+    margin: 0;
+  }
   img {
     cursor: pointer;
   }
 }
 
 .filterSection {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 10px 0;
-  display: flex;
+  gap: 5px;
   align-items: flex-start;
   border-bottom: solid 1px #d9d9d9;
   flex-wrap: wrap;
+}
+
+.filterSectionHeader {
+  font-weight: bold;
 }
 
 .dropdownButton {
@@ -74,10 +92,4 @@
 .filterOptions {
   display: flex;
   flex-direction: column;
-}
-
-.filterSection {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }

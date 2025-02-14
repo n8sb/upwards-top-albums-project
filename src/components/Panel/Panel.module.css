@@ -1,0 +1,62 @@
+.panel {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 240px;
+  height: auto;
+  background-color: #f5f5f5;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 10px 20px;
+  &.open {
+    right: 0;
+  }
+}
+
+.panelOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 999;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.panelButtonContainer {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  margin: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.panelHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  h2 {
+    margin: 0;
+  }
+  img {
+    cursor: pointer;
+  }
+}
+
+.panelContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  z-index: 1;
+}
