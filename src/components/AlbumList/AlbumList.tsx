@@ -6,7 +6,7 @@ import {
   FilterSelection,
   Genre,
 } from "../../common/types";
-import { getAlbumYear } from "../../common/utils";
+import { FAVORITE_CHANGE_EVENT, getAlbumYear } from "../../common/utils";
 import { AlbumCard } from "../AlbumCard/AlbumCard";
 import styles from "./AlbumList.module.css";
 
@@ -31,8 +31,7 @@ export const AlbumList = ({
   const [albumData, setAlbumData] = useState<Album[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [dataError, setDataError] = useState<string | unknown>("");
-  // State to trigger re-render of AlbumCard components when favorite is added/removed via localStorage
-  const [favoriteChange, setFavoriteChange] = useState(false);
+  const [, setFavoriteUpdate] = useState(0);
 
   const getData = async () => {
     try {
@@ -49,6 +48,18 @@ export const AlbumList = ({
 
   useEffect(() => {
     getData();
+  }, []);
+
+  useEffect(() => {
+    const handleFavoriteChange = () => {
+      // Force re-render by updating state
+      setFavoriteUpdate((prev) => prev + 1);
+    };
+
+    window.addEventListener(FAVORITE_CHANGE_EVENT, handleFavoriteChange);
+    return () => {
+      window.removeEventListener(FAVORITE_CHANGE_EVENT, handleFavoriteChange);
+    };
   }, []);
 
   const handleClearSearch = () => {
@@ -146,8 +157,6 @@ export const AlbumList = ({
         <AlbumCard
           key={album.id.attributes["im:id"]}
           album={album}
-          setFavoriteChange={setFavoriteChange}
-          favoriteChange={favoriteChange}
         />
       ))}
     </div>

@@ -3,19 +3,13 @@ import { Album } from "../../common/types";
 import styles from "./AlbumCard.module.css";
 import favoriteIcon from "/favorite.svg";
 import notFavoriteIcon from "/not-favorite.svg";
-import { getAlbumYear } from "../../common/utils";
+import { emitFavoriteChange, getAlbumYear } from "../../common/utils";
 
 type AlbumCardProps = {
   album: Album;
-  setFavoriteChange: (value: boolean) => void;
-  favoriteChange: boolean;
 };
 
-export const AlbumCard = memo(function AlbumCard({
-  album,
-  setFavoriteChange,
-  favoriteChange,
-}: AlbumCardProps) {
+export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
   const {
     id,
     link,
@@ -41,7 +35,7 @@ export const AlbumCard = memo(function AlbumCard({
     if (isFavorite) {
       localStorage.removeItem(id.attributes["im:id"]);
       setIsFavorite(false);
-      setFavoriteChange(!favoriteChange);
+      emitFavoriteChange();
     } else {
       localStorage.setItem(id.attributes["im:id"], "true");
       setIsFavorite(true);
