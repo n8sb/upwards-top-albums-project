@@ -58,4 +58,9 @@
     flex-direction: column;
     place-items: center;
   }
+  .loadingContainer {
+    height: 100%;
+    align-items: flex-start;
+    margin-top: 200px;
+  }
 }
