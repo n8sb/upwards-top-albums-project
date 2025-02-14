@@ -52,6 +52,7 @@ button {
   background-color: #8bedf28d;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: #000;
   &.clear {
     background-color: #ddd;
   }
