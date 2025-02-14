@@ -1,7 +1,7 @@
-// update types as sort uptions are added
+// update types are updated as sort options are added
 export const sortOptions = ["artist", "album", "release date"] as const;
 
-export const filterOptions = ["genre", "decade"] as const;
+export const filterOptions = ["genre", "decade", "showFavorites"] as const;
 
 export const genres = [
   "Alternative",
