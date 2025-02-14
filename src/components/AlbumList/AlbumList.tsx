@@ -6,9 +6,9 @@ import {
   FilterSelection,
   Genre,
 } from "../../common/types";
+import { getAlbumYear } from "../../common/utils";
 import { AlbumCard } from "../AlbumCard/AlbumCard";
 import styles from "./AlbumList.module.css";
-import { getAlbumYear } from "../../common/utils";
 
 type AlbumListProps = {
   searchQuery: string;
@@ -118,7 +118,7 @@ export const AlbumList = ({
     return filteredAlbums || sortedAlbumData;
   };
 
-  const filteredAlbums = getFilteredAlbums();
+  // const filteredAlbums = getFilteredAlbums();
 
   return isLoading ? (
     <div className={styles.loadingContainer}>
@@ -129,7 +129,7 @@ export const AlbumList = ({
         </div>
       )}
     </div>
-  ) : filteredAlbums?.length === 0 ? (
+  ) : getFilteredAlbums()?.length === 0 ? (
     <div className={styles.emptySearchContainer}>
       <div className={styles.emptySearchMessage}>No albums found</div>
       <button
@@ -140,7 +140,7 @@ export const AlbumList = ({
     </div>
   ) : (
     <div className={styles.albumListContainer}>
-      {filteredAlbums?.map((album) => (
+      {getFilteredAlbums()?.map((album) => (
         <AlbumCard
           key={album.id.attributes["im:id"]}
           album={album}
