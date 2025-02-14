@@ -58,14 +58,32 @@ export const FilterPanel = ({
     });
   };
 
+  const filtersAreEmpty =
+    !filters.genre.length && !filters.decade.length && !filters.showFavorites;
+
   return (
     <Panel
+      hideClearButton={filtersAreEmpty}
       openButtonText='Filters'
       clearButtonText='Clear Filters'
       isPanelOpen={isPanelOpen}
       onClose={onClose}
       setIsPanelOpen={setIsPanelOpen}
       onClick={handleClearFilters}>
+      <div className={styles.filterSection}>
+        <div className={styles.filterSectionHeader}>Favorites</div>
+        <div className={styles.filterOptions}>
+          <div className={styles.filterCheckbox}>
+            <input
+              type='checkbox'
+              name={"favorites"}
+              checked={filters.showFavorites}
+              onChange={() => handleSetFilters("showFavorites")}
+            />
+            <label htmlFor={"favorites"}>Show favorites</label>
+          </div>
+        </div>
+      </div>
       <div className={styles.filterSection}>
         <div className={styles.filterSectionHeader}>Genre</div>
         <div className={styles.filterOptions}>

@@ -9,6 +9,7 @@ type PanelProps = {
   setIsPanelOpen: (value: boolean) => void;
   children: React.ReactNode;
   onClick: () => void;
+  hideClearButton?: boolean;
 };
 
 export const Panel = ({
@@ -19,6 +20,7 @@ export const Panel = ({
   setIsPanelOpen,
   children,
   onClick,
+  hideClearButton,
 }: PanelProps) => {
   return (
     <>
@@ -39,7 +41,13 @@ export const Panel = ({
         </div>
         <div className={styles.panelContent}>{children}</div>
         <div className={styles.panelButtonContainer}>
-          <button onClick={onClick}>{clearButtonText}</button>
+          {!hideClearButton && (
+            <button
+              onClick={onClick}
+              className='clear'>
+              {clearButtonText}
+            </button>
+          )}
           <button onClick={onClose}>Close</button>
         </div>
       </div>
