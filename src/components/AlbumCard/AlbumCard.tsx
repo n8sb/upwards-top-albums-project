@@ -1,12 +1,15 @@
-import styles from "./AlbumCard.module.css";
+import { memo, useEffect, useState } from "react";
 import { Album } from "../../common/types";
+import styles from "./AlbumCard.module.css";
+import favoriteIcon from "/favorite.svg";
+import notFavoriteIcon from "/not-favorite.svg";
 
 type AlbumCardProps = {
   album: Album;
-  setSelectedAlbum: (album: Album) => void;
+  setSelectedAlbum?: (album: Album) => void;
 };
 
-export const AlbumCard = ({ album, setSelectedAlbum }: AlbumCardProps) => {
+export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
   const {
     id,
     link,
@@ -15,14 +18,15 @@ export const AlbumCard = ({ album, setSelectedAlbum }: AlbumCardProps) => {
     "im:artist": artist,
   } = album;
 
-  //get alternative sized album images
-  const largerImage = image[2].label.replace("170x170", "600x600");
   const [isFavorite, setIsFavorite] = useState(
     localStorage.getItem(id.attributes["im:id"]) === "true"
   );
   const [isAnimating, setIsAnimating] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
   //get alternative sized album images from formatted url
   const largerImage = image[2].label.replace("170x170", "340x340");
@@ -50,30 +54,35 @@ export const AlbumCard = ({ album, setSelectedAlbum }: AlbumCardProps) => {
   }, [isAnimating]);
 
   return (
-    <>
-      <div
-        onClick={() => setSelectedAlbum(album)}
-        key={id.attributes["im:id"]}
-        className={styles.albumCard}>
-        <img
-          className={styles.albumImage}
-          src={largerImage}
-          alt={name.label}
-        />
-        <div className={styles.albumText}>
-          <a
-            className={styles.albumName}
-            href={link.attributes.href}
-            target='_blank'>
-            <div>{name.label}</div>
-          </a>
-          <a
-            className={styles.albumArtist}
-            href={artist?.attributes?.href}
-            target='_blank'>
-            <div>{artist.label}</div>
-          </a>
+    <div
+      key={id.attributes["im:id"]}
+      className={`${styles.albumCard} ${
+        isAnimating ? styles.animatedBorder : ""
+      }`}>
+      {!imageLoaded && (
+        <div className={styles.imagePlaceholder}>
+          <div className={styles.shimmer}></div>
         </div>
+      )}
+      <img
+        className={`${styles.albumImage} ${imageLoaded ? styles.loaded : ""}`}
+        src={largerImage}
+        alt={name.label}
+        onLoad={handleImageLoad}
+      />
+      <div className={styles.albumText}>
+        <a
+          className={styles.albumName}
+          href={link.attributes.href}
+          target='_blank'>
+          <div>{name.label}</div>
+        </a>
+        <a
+          className={styles.albumArtist}
+          href={artist?.attributes?.href}
+          target='_blank'>
+          <div>{artist.label}</div>
+        </a>
       </div>
       <div className={styles.favoriteContainer}>
         {isFavorite ? (
