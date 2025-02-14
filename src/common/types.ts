@@ -1,6 +1,6 @@
 import { decades, filterOptions, genres, sortOptions } from "./dataSources";
 
-// albumm daya types
+// album data types
 type Label = string;
 
 interface AlbumCategory {
@@ -106,6 +106,7 @@ export type Decade = (typeof decades)[number];
 export type FilterSelection = {
   decade: Decade[];
   genre: Genre[];
+  showFavorites: boolean;
 };
 
 export type FilterValues = Decade | Genre;
