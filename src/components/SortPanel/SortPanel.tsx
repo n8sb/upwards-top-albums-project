@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./SortPanel.module.css";
-import { CapitalizeFirstLetter } from "../../common/utils";
+import { capitalizeFirstLetter } from "../../common/utils";
 import { AlbumSortBy, SortType, SortOption } from "../../common/types";
 import { SortOptions } from "../SortOptions/SortOptions";
 import sortIcon from "/sort.svg";
@@ -73,7 +73,7 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
         className={styles.dropdownButton}
         onClick={handleShowDropdown}>
         {sortBy
-          ? CapitalizeFirstLetter(
+          ? capitalizeFirstLetter(
               sortBy?.replace(/(ascending|descending)/g, "")
             )
           : "Sort"}
@@ -100,7 +100,7 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
             <div
               key={index}
               className={styles.sortOptionGroup}>
-              <div>{CapitalizeFirstLetter(sortOption)}</div>
+              <div>{capitalizeFirstLetter(sortOption)}</div>
               <SortOptions
                 sortOption={sortOption}
                 selectedSort={selectedSort || sortBy}

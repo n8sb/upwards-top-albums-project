@@ -1,4 +1,4 @@
-import { CapitalizeFirstLetter } from "../../common/utils";
+import { capitalizeFirstLetter } from "../../common/utils";
 import { AlbumSortBy, SortType, SortOption } from "../../common/types";
 import styles from "./SortOptions.module.css";
 
@@ -24,7 +24,7 @@ export const SortOptions = ({
         checked={selectedSort === `${sortOption} ${sortType}`}
         onChange={() => handleSetSelectedSort(sortOption, sortType)}
       />
-      <label htmlFor={sortOption}>{CapitalizeFirstLetter(sortType)}</label>
+      <label htmlFor={sortOption}>{capitalizeFirstLetter(sortType)}</label>
     </div>
   );
 };
