@@ -17,6 +17,37 @@ export const AlbumCard = ({ album, setSelectedAlbum }: AlbumCardProps) => {
 
   //get alternative sized album images
   const largerImage = image[2].label.replace("170x170", "600x600");
+  const [isFavorite, setIsFavorite] = useState(
+    localStorage.getItem(id.attributes["im:id"]) === "true"
+  );
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+
+  //get alternative sized album images from formatted url
+  const largerImage = image[2].label.replace("170x170", "340x340");
+
+  const handleMakeFavorite = () => {
+    if (isFavorite) {
+      localStorage.removeItem(id.attributes["im:id"]);
+      setIsFavorite(false);
+    } else {
+      localStorage.setItem(id.attributes["im:id"], "true");
+      setIsFavorite(true);
+      // Only trigger animation when favoriting
+      setIsAnimating(true);
+    }
+  };
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isAnimating) {
+      timer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [isAnimating]);
 
   return (
     <>
@@ -44,6 +75,25 @@ export const AlbumCard = ({ album, setSelectedAlbum }: AlbumCardProps) => {
           </a>
         </div>
       </div>
-    </>
+      <div className={styles.favoriteContainer}>
+        {isFavorite ? (
+          <img
+            onClick={handleMakeFavorite}
+            className={`${styles.favoriteIcon} ${
+              isAnimating ? styles.rotate : ""
+            }`}
+            src={favoriteIcon}
+            alt='not favorite'
+          />
+        ) : (
+          <img
+            onClick={handleMakeFavorite}
+            className={styles.favoriteIcon}
+            src={notFavoriteIcon}
+            alt='favorite'
+          />
+        )}
+      </div>
+    </div>
   );
-};
+});
