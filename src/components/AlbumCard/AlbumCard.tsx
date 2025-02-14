@@ -3,6 +3,7 @@ import { Album } from "../../common/types";
 import styles from "./AlbumCard.module.css";
 import favoriteIcon from "/favorite.svg";
 import notFavoriteIcon from "/not-favorite.svg";
+import { getAlbumYear } from "../../common/utils";
 
 type AlbumCardProps = {
   album: Album;
@@ -83,6 +84,7 @@ export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
           target='_blank'>
           <div>{artist.label}</div>
         </a>
+        <div className={styles.albumDate}>{getAlbumYear(album)}</div>
       </div>
       {isFavorite ? (
         <img

@@ -24,9 +24,14 @@
   color: #212529;
 }
 
-.albumArtist {
+.albumArtist,
+.albumDate {
   font-size: 0.8rem;
   color: #212529;
+}
+
+.albumArtist {
+  font-weight: bold;
 }
 
 .albumText {
@@ -122,9 +127,9 @@
     white-space: wrap;
   }
   .albumName {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   .albumArtist {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
 }
