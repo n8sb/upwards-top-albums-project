@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./SortDropdown.module.css";
+import styles from "./SortPanel.module.css";
 import { CapitalizeFirstLetter } from "../../common/utils";
 import { AlbumSortBy, SortType, SortOption } from "../../common/types";
 import { SortOptions } from "../SortOptions/SortOptions";
@@ -103,13 +103,13 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
               <div>{CapitalizeFirstLetter(sortOption)}</div>
               <SortOptions
                 sortOption={sortOption}
-                selectedSort={selectedSort}
+                selectedSort={selectedSort || sortBy}
                 handleSetSelectedSort={handleSetSelectedSort}
                 sortType='ascending'
               />
               <SortOptions
                 sortOption={sortOption}
-                selectedSort={selectedSort}
+                selectedSort={selectedSort || sortBy}
                 handleSetSelectedSort={handleSetSelectedSort}
                 sortType='descending'
               />
@@ -117,7 +117,13 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
           );
         })}
         <div className={styles.dropdownActionButtonContainer}>
-          {selectedSort && <button onClick={clearSort}>Clear</button>}
+          {selectedSort && (
+            <button
+              onClick={clearSort}
+              className={"clear"}>
+              Clear Sort
+            </button>
+          )}
           <button onClick={handleTriggerSort}>
             {selectedSort !== null ? "Sort" : "Close"}
           </button>
