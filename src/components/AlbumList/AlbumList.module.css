@@ -48,6 +48,16 @@
   width: 100%;
 }
 
+.clearSearchButton {
+  background: transparent;
+  font-size: 0.8em;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .emptySearchText {
   margin-top: 20px;
 }
