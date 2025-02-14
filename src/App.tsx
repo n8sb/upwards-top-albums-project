@@ -10,6 +10,7 @@ function App() {
   const [filters, setFilters] = useState<FilterSelection>({
     genre: [],
     decade: [],
+    showFavorites: false,
   });
 
   return (
@@ -26,6 +27,9 @@ function App() {
         searchQuery={searchQuery}
         sortBy={sortBy}
         filters={filters}
+        setSearchQuery={setSearchQuery}
+        setSortBy={setSortBy}
+        setFilters={setFilters}
       />
     </>
   );
