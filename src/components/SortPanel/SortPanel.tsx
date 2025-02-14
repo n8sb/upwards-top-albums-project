@@ -20,6 +20,7 @@ export const SortDropdown = ({ sortBy, setSortBy }: SortDropdownProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
 
+  // handle close when clicking outside dropdown or on sort button
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (

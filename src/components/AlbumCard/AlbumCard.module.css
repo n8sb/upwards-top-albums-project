@@ -44,6 +44,7 @@
   justify-content: center;
 }
 
+/* Animation for favorite icon spin */
 .favoriteIcon {
   cursor: pointer;
   position: absolute;
@@ -66,7 +67,9 @@
     transform: rotate(360deg) scale(1);
   }
 }
+/* Loading animation end */
 
+/* Animation for image placeholder */
 .imagePlaceholder {
   width: 100%;
   background-color: #f0f0f0;
@@ -92,6 +95,7 @@
     transform: translateX(100%);
   }
 }
+/* Placeholder animation end  */
 
 .albumImage {
   width: 100%;
@@ -103,6 +107,7 @@
   opacity: 1;
 }
 
+/* Mobile styles */
 @media (width < 600px) {
   .albumCard {
     width: 95%;
@@ -133,3 +138,4 @@
     font-size: 0.8rem;
   }
 }
+/* Mobile styles end */

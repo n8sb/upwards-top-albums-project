@@ -24,6 +24,7 @@ export const FilterPanel = ({
   setFilters,
   setIsPanelOpen,
 }: FilterPanelProps) => {
+  // Function to handle setting filter state
   const handleSetFilters = (type: FilterType, filterData?: FilterValues) => {
     const newFilters = { ...filters };
     if (type === "genre") {

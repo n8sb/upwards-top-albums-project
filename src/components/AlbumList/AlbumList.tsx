@@ -31,7 +31,6 @@ export const AlbumList = ({
   const [albumData, setAlbumData] = useState<Album[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [dataError, setDataError] = useState<string | unknown>("");
-  // const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
 
   const getData = async () => {
     try {
@@ -60,6 +59,7 @@ export const AlbumList = ({
     });
   };
 
+  //Search, filter, and sort album data
   const searchedAlbumData = albumData?.filter((album) => {
     const lowercaseSearchQuery = searchQuery.trim().toLowerCase();
     return (
