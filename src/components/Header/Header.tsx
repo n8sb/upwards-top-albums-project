@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AlbumSortBy, FilterSelection } from "../../common/types";
-import SearchBar from "../SearchBar/SearchBar";
-import { SortDropdown } from "../SortDropdown/SortDropdown";
-import styles from "./Header.module.css";
 import { FilterPanel } from "../FilterPanel/FilterPanel";
+import SearchBar from "../SearchBar/SearchBar";
+import { SortDropdown } from "../SortPanel/SortPanel";
+import styles from "./Header.module.css";
 
 type HeaderProps = {
   searchQuery: string;
@@ -22,48 +22,35 @@ export const Header = ({
   filters,
   setFilters,
 }: HeaderProps) => {
-  const [isAnimated, setIsAnimated] = useState(false);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimated((prev) => !prev);
-    }, 4000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className={styles.header}>
       <div className={styles.headerLeftContainer}>
         <img
-          src='/ITunes_logo.png'
+          src='/music-logo.svg'
           className={styles.headerLogo}
         />
-        <h1
-          className={`${styles.headerTitle} ${
-            isAnimated ? styles.animate : ""
-          }`}>
-          iTunes Top 100 Albums
-        </h1>
+        <h1 className={styles.headerTitle}>iTunes Top Albums</h1>
       </div>
       <div className={styles.actionContainer}>
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
-        <SortDropdown
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-        />
-        <FilterPanel
-          filters={filters}
-          setFilters={setFilters}
-          isOpen={isPanelOpen}
-          setIsPanelOpen={setIsPanelOpen}
-          onClose={() => setIsPanelOpen(false)}
-        />
+        <div className={styles.sortFilterContainer}>
+          <SortDropdown
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+          />
+          <FilterPanel
+            filters={filters}
+            setFilters={setFilters}
+            isPanelOpen={isPanelOpen}
+            setIsPanelOpen={setIsPanelOpen}
+            onClose={() => setIsPanelOpen(false)}
+          />
+        </div>
       </div>
     </div>
   );
