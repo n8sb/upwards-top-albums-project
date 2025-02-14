@@ -84,25 +84,23 @@ export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
           <div>{artist.label}</div>
         </a>
       </div>
-      <div className={styles.favoriteContainer}>
-        {isFavorite ? (
-          <img
-            onClick={handleMakeFavorite}
-            className={`${styles.favoriteIcon} ${
-              isAnimating ? styles.rotate : ""
-            }`}
-            src={favoriteIcon}
-            alt='not favorite'
-          />
-        ) : (
-          <img
-            onClick={handleMakeFavorite}
-            className={styles.favoriteIcon}
-            src={notFavoriteIcon}
-            alt='favorite'
-          />
-        )}
-      </div>
+      {isFavorite ? (
+        <img
+          onClick={handleMakeFavorite}
+          className={`${styles.favoriteIcon} ${
+            isAnimating ? styles.rotate : ""
+          }`}
+          src={favoriteIcon}
+          alt='not favorite'
+        />
+      ) : (
+        <img
+          onClick={handleMakeFavorite}
+          className={styles.favoriteIcon}
+          src={notFavoriteIcon}
+          alt='favorite'
+        />
+      )}
     </div>
   );
 });

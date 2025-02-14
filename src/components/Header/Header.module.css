@@ -52,3 +52,16 @@
     place-items: center;
   }
 }
+
+@media (width < 460px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+  .actionContainer {
+    flex-direction: column;
+    gap: 10px;
+    place-items: center;
+  }
+}
