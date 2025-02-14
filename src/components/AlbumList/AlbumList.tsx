@@ -13,24 +13,33 @@ type AlbumListProps = {
   searchQuery: string;
   sortBy: AlbumSortBy;
   filters: FilterSelection;
+  setSearchQuery: (value: string) => void;
+  setSortBy: (value: AlbumSortBy) => void;
+  setFilters: (value: FilterSelection) => void;
 };
 
-export const AlbumList = ({ searchQuery, sortBy, filters }: AlbumListProps) => {
+export const AlbumList = ({
+  searchQuery,
+  sortBy,
+  filters,
+  setSearchQuery,
+  setSortBy,
+  setFilters,
+}: AlbumListProps) => {
   const ALBUMS_URL = "https://itunes.apple.com/us/rss/topalbums/limit=100/json";
   const [albumData, setAlbumData] = useState<Album[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
-
-  console.log(isLoading, selectedAlbum, setSelectedAlbum);
+  const [dataError, setDataError] = useState<string | unknown>("");
+  // const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
 
   const getData = async () => {
     try {
       const newData = await fetch(ALBUMS_URL);
       const json = await newData.json();
       setAlbumData(json.feed.entry);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setDataError(error);
     } finally {
       setIsLoading(false);
     }
@@ -39,6 +48,16 @@ export const AlbumList = ({ searchQuery, sortBy, filters }: AlbumListProps) => {
   useEffect(() => {
     getData();
   }, []);
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setSortBy(null);
+    setFilters({
+      genre: [],
+      decade: [],
+      showFavorites: false,
+    });
+  };
 
   const searchedAlbumData = albumData?.filter((album) => {
     const lowercaseSearchQuery = searchQuery.trim().toLowerCase();
@@ -76,14 +95,18 @@ export const AlbumList = ({ searchQuery, sortBy, filters }: AlbumListProps) => {
   const getFilteredAlbums = () => {
     let filteredAlbums: Album[] | undefined = sortedAlbumData;
 
-    //compare genres
+    if (filters.showFavorites) {
+      filteredAlbums = filteredAlbums?.filter((album) => {
+        return localStorage.getItem(album.id.attributes["im:id"]) === "true";
+      });
+    }
+
     if (filters.genre.length !== 0) {
       filteredAlbums = filteredAlbums?.filter((album) => {
         return filters.genre.includes(album.category.attributes.label as Genre);
       });
     }
 
-    //compare decades
     if (filters.decade.length !== 0) {
       filteredAlbums = filteredAlbums?.filter((album) => {
         const yearEnd =
@@ -96,24 +119,34 @@ export const AlbumList = ({ searchQuery, sortBy, filters }: AlbumListProps) => {
     return filteredAlbums || sortedAlbumData;
   };
 
-  return (
+  const filteredAlbums = getFilteredAlbums();
+
+  return isLoading ? (
+    <div className={styles.loadingContainer}>
+      <div className={styles.loadingIcon}></div>
+      {(dataError as string) && (
+        <div className={styles.loadingText}>
+          {`Issue Loading Data: ${dataError}`}
+        </div>
+      )}
+    </div>
+  ) : filteredAlbums?.length === 0 ? (
+    <div className={styles.emptySearchContainer}>
+      <div className={styles.emptySearchMessage}>No albums found</div>
+      <button
+        className={styles.clearSearchButton}
+        onClick={handleClearSearch}>
+        Clear Search
+      </button>
+    </div>
+  ) : (
     <div className={styles.albumListContainer}>
-      {getFilteredAlbums()?.map((album) => {
-        return (
-          <AlbumCard
-            setSelectedAlbum={setSelectedAlbum}
-            key={album.id.attributes["im:id"]}
-            album={album}
-          />
-        );
-      })}
+      {filteredAlbums?.map((album) => (
+        <AlbumCard
+          key={album.id.attributes["im:id"]}
+          album={album}
+        />
+      ))}
     </div>
   );
 };
-
-{
-  /* <AlbumModal
-        selectedAlbum={selectedAlbum}
-        setSelectedAlbum={setSelectedAlbum}
-      /> */
-}
