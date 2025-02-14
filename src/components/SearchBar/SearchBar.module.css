@@ -8,7 +8,7 @@
   border-radius: 5px;
   background-color: #f9f9f9;
   color: #000;
-  min-width: 250px;
+  width: 250px;
 }
 
 .clearSearchIcon {
@@ -25,4 +25,10 @@
 
 .clearSearchIcon:hover {
   opacity: 1;
+}
+
+@media screen and (width < 550px) {
+  .searchBar {
+    width: 200px;
+  }
 }
