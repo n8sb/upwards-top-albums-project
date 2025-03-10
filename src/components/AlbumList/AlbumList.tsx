@@ -6,9 +6,9 @@ import {
   FilterSelection,
   Genre,
 } from "../../common/types";
-import { FAVORITE_CHANGE_EVENT, getAlbumYear } from "../../common/utils";
 import { AlbumCard } from "../AlbumCard/AlbumCard";
 import styles from "./AlbumList.module.css";
+import { getAlbumYear } from "../../common/utils";
 
 type AlbumListProps = {
   searchQuery: string;
@@ -31,7 +31,11 @@ export const AlbumList = ({
   const [albumData, setAlbumData] = useState<Album[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [dataError, setDataError] = useState<string | unknown>("");
-  const [, setFavoriteUpdate] = useState(0);
+  const [favorites, setFavorites] = useState(
+    localStorage.getItem("favorites")
+      ? JSON.parse(localStorage.getItem("favorites") as string)
+      : []
+  );
 
   const getData = async () => {
     try {
@@ -48,18 +52,6 @@ export const AlbumList = ({
 
   useEffect(() => {
     getData();
-  }, []);
-
-  useEffect(() => {
-    const handleFavoriteChange = () => {
-      // Force re-render by updating state
-      setFavoriteUpdate((prev) => prev + 1);
-    };
-
-    window.addEventListener(FAVORITE_CHANGE_EVENT, handleFavoriteChange);
-    return () => {
-      window.removeEventListener(FAVORITE_CHANGE_EVENT, handleFavoriteChange);
-    };
   }, []);
 
   const handleClearSearch = () => {
@@ -111,7 +103,7 @@ export const AlbumList = ({
 
     if (filters.showFavorites) {
       filteredAlbums = filteredAlbums?.filter((album) => {
-        return localStorage.getItem(album.id.attributes["im:id"]) === "true";
+        return favorites.includes(album.id.attributes["im:id"]);
       });
     }
 
@@ -157,6 +149,8 @@ export const AlbumList = ({
         <AlbumCard
           key={album.id.attributes["im:id"]}
           album={album}
+          favorites={favorites}
+          setFavorites={setFavorites}
         />
       ))}
     </div>

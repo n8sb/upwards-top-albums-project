@@ -1,15 +1,21 @@
 import { memo, useEffect, useState } from "react";
 import { Album } from "../../common/types";
+import { getAlbumYear } from "../../common/utils";
 import styles from "./AlbumCard.module.css";
 import favoriteIcon from "/favorite.svg";
 import notFavoriteIcon from "/not-favorite.svg";
-import { emitFavoriteChange, getAlbumYear } from "../../common/utils";
 
 type AlbumCardProps = {
   album: Album;
+  favorites: string[];
+  setFavorites: (value: () => string[]) => void;
 };
 
-export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
+export const AlbumCard = memo(function AlbumCard({
+  album,
+  favorites,
+  setFavorites,
+}: AlbumCardProps) {
   const {
     id,
     link,
@@ -19,7 +25,9 @@ export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
   } = album;
 
   const [isFavorite, setIsFavorite] = useState(
-    localStorage.getItem(id.attributes["im:id"]) === "true"
+    JSON.parse(localStorage.getItem("favorites") || "[]").includes(
+      id.attributes["im:id"]
+    )
   );
   const [isAnimating, setIsAnimating] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -33,11 +41,17 @@ export const AlbumCard = memo(function AlbumCard({ album }: AlbumCardProps) {
 
   const handleMakeFavorite = () => {
     if (isFavorite) {
-      localStorage.removeItem(id.attributes["im:id"]);
+      const newFavorites = [...favorites];
+      const index = newFavorites.indexOf(id.attributes["im:id"]);
+      newFavorites.splice(index, 1);
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      setFavorites(() => newFavorites);
       setIsFavorite(false);
-      emitFavoriteChange();
     } else {
-      localStorage.setItem(id.attributes["im:id"], "true");
+      const newFavorites = [...favorites];
+      newFavorites.push(id.attributes["im:id"]);
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      setFavorites(() => newFavorites);
       setIsFavorite(true);
       // Only trigger animation when favoriting
       setIsAnimating(true);

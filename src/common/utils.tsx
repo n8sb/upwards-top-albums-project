@@ -9,9 +9,3 @@ export const capitalizeFirstLetter = (str: string) => {
 export const getAlbumYear = (album: Album) => {
   return album["im:releaseDate"].attributes.label.split(" ")[2];
 };
-
-export const FAVORITE_CHANGE_EVENT = "favoriteChange";
-
-export const emitFavoriteChange = () => {
-  window.dispatchEvent(new Event(FAVORITE_CHANGE_EVENT));
-};
